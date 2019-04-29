@@ -1,12 +1,12 @@
-<form action="/admin/storeOrder" method="POST" >
+<form action="/admin/computeOrder" method="POST" >
     @csrf
     @method("POST")
     <div id="orders">
         <div class="order">
                 <span>medicine id</span> 
-            <input type="text" required name="product_id[]">
+            <input type="number" required name="product_id[]">
             <span>count</span>
-            <input type="number" required name="product_count[]">
+            <input type="number" step="0.01" required name="product_count[]">
             
             <button id="remove_product" class="btn btn-primary">X</button>
                 
@@ -28,9 +28,9 @@
         event.preventDefault();
         var html = ' <div class="order"> \
             <span> medicine id </span>\
-            <input type="text" required name="product_id[]">\
+            <input type="number"  required name="product_id[]">\
             <span>count</span>\
-            <input type="number" required name="product_count[]">\
+            <input type="number"  step="0.01" required name="product_count[]">\
             <button id="remove_product" class="btn btn-primary">X</button>\
         </div>\
         <br/> ';

@@ -81,10 +81,18 @@ class PositionController extends Controller
     {
         $grid = new Grid(new Position);
 
-        $grid->id('ID');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+        $grid->id('ID')->sortable();
+        $grid->name('Name')->sortable();
+        $grid->salary('Salary')->sortable();
+        $grid->created_at('Created at')->sortable();
+        $grid->updated_at('Updated at')->sortable();
 
+        $grid->filter(function($filter){
+            $filter->like('name','Name');
+            $filter->between('salary','Salary');
+            $filter->between('created_at','Created time')->datetime();
+        });
+        
         return $grid;
     }
 
@@ -99,6 +107,8 @@ class PositionController extends Controller
         $show = new Show(Position::findOrFail($id));
 
         $show->id('ID');
+        $show->name('Name');
+        $show->salary('Salary');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -114,10 +124,11 @@ class PositionController extends Controller
     {
         $form = new Form(new Position);
 
-        $form->display('ID');
-        $form->display('Created at');
-        $form->display('Updated at');
-
+        $form->display('id','ID');
+        $form->text('name','Name');
+        $form->number('salary','Salary');
+        $form->display('created_at','Created at');
+        $form->display('updated_at','Updated at');
         return $form;
     }
 }

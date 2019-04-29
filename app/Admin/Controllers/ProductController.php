@@ -81,10 +81,23 @@ class ProductController extends Controller
     {
         $grid = new Grid(new Product);
 
-        $grid->id('ID');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
-
+        $grid->id('ID')->sortable();
+        $grid->name('Name');
+        $grid->category('Category')->sortable();
+        $grid->description('Description');
+        $grid->producer('Producer')->sortable();
+        $grid->price('Price')->sortable();
+        $grid->created_at('Created at')->sortable();
+        $grid->updated_at('Updated at')->sortable();
+        
+        $grid->filter(function($filter){
+            $filter->like('name','Name');
+            $filter->like('category','Category');
+            $filter->like('description','Description');
+            $filter->like('producer','Producer');
+            $filter->between('price','Price');
+            $filter->between('created_at','Created time')->datetime();
+        });
         return $grid;
     }
 
@@ -99,6 +112,11 @@ class ProductController extends Controller
         $show = new Show(Product::findOrFail($id));
 
         $show->id('ID');
+        $show->name('Name');
+        $show->category('Category');
+        $show->description('Description');
+        $show->producer('Producer');
+        $show->price('Price');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -114,9 +132,17 @@ class ProductController extends Controller
     {
         $form = new Form(new Product);
 
-        $form->display('ID');
-        $form->display('Created at');
-        $form->display('Updated at');
+        $form->display('id','ID');
+
+        $form->text('name','Name');
+        $form->text('category','Category');
+        $form->textarea('description','Description');
+        $form->text('producer','Producer');
+        $form->number('price','Price');
+
+
+        $form->display('created_at','Created at');
+        $form->display('updated_at','Updated at');
 
         return $form;
     }

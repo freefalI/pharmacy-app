@@ -18,8 +18,13 @@ Route::group([
     $router->resource('tables/employees', EmployeeController::class);
     $router->resource('tables/sales', SaleController::class);
     $router->resource('tables/positions', PositionController::class);
-    $router->get('tables/orders/create', 'OrderController@createOrder');
+    $router->resource('tables/sale_details', SaleDetailController::class);
+    $router->get('tables/sales/create', 'SaleController@createOrder');
 
-    $router->post('storeOrder', 'OrderController@storeOrder');
+    $router->post('computeOrder', 'SaleController@computeOrder');
+    $router->post('storeOrder', 'SaleController@storeOrder');
+
+    $router->resource('tables/abc', UsersController::class);
+
 
 });

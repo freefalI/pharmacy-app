@@ -81,9 +81,23 @@ class EmployeeController extends Controller
     {
         $grid = new Grid(new Employee);
 
-        $grid->id('ID');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+        $grid->id('ID')->sortable();
+        $grid->name('Name')->sortable();
+        $grid->surname('Surname')->sortable();
+        $grid->parent_name('Parent name')->sortable();
+        $grid->position_id('Position id')->sortable();
+        $grid->hire_date('Hire date')->sortable();
+        $grid->created_at('Created at')->sortable();
+        $grid->updated_at('Updated at')->sortable();
+
+        $grid->filter(function($filter){
+            $filter->like('name','Name');
+            $filter->like('surname','Surname');
+            $filter->like('parent_name','Parent name');
+            $filter->equal('position_id','Position id')->integer();
+            $filter->between('hire_date','Hire date')->date();
+            $filter->between('created_at','Created time')->datetime();
+        });
 
         return $grid;
     }
@@ -98,7 +112,13 @@ class EmployeeController extends Controller
     {
         $show = new Show(Employee::findOrFail($id));
 
+      
         $show->id('ID');
+        $show->name('Name');
+        $show->surname('Surname');
+        $show->parent_name('Parent name');
+        $show->position_id('Position id');
+        $show->hire_date('Hire date');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -114,9 +134,16 @@ class EmployeeController extends Controller
     {
         $form = new Form(new Employee);
 
-        $form->display('ID');
-        $form->display('Created at');
-        $form->display('Updated at');
+        $form->display('id','ID');
+        $form->text('name','Name');
+        $form->text('surname','Surname');
+        $form->text('parent_name','Parent name');
+        $form->text('position_id','Position id');
+        $form->date('hire_date','Hire date');
+
+
+        $form->display('created_at','Created at');
+        $form->display('updated_at','Updated at');
 
         return $form;
     }
